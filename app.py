@@ -25,15 +25,18 @@ roles_users = db.Table(
 
 
 class Role(db.Model, RoleMixin):
+    """Role Model inherited"""
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
 
     def __str__(self):
++       """Returns a string representative of Role"""
         return self.name
 
 
 class User(db.Model, UserMixin):
+    """User Model inherited"""
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(255))
@@ -45,6 +48,7 @@ class User(db.Model, UserMixin):
                             backref=db.backref('users', lazy='dynamic'))
 
     def __str__(self):
+        """Returns a string representative of User"""
         return self.email
 
 
@@ -107,7 +111,7 @@ class CustomView(BaseView):
 def index():
     return render_template('index.html')
 
-# Create admin
+# Create a Flask-Admin
 admin = flask_admin.Admin(
     app,
     'My Dashboard',
@@ -120,8 +124,8 @@ admin.add_view(MyModelView(Role, db.session, menu_icon_type='fa', menu_icon_valu
 admin.add_view(UserView(User, db.session, menu_icon_type='fa', menu_icon_value='fa-users', name="Users"))
 admin.add_view(CustomView(name="Custom view", endpoint='custom', menu_icon_type='fa', menu_icon_value='fa-connectdevelop',))
 
-# define a context processor for merging flask-admin's template context into the
-# flask-security views.
+# define a context processor for merging Flask-Admin's template context into the
+# Flask-Security views.
 @security.context_processor
 def security_context_processor():
     return dict(
@@ -132,35 +136,41 @@ def security_context_processor():
     )
 
 def build_sample_db():
-    """
-    Populate a small db with some example entries.
-    """
+    """Populate a small db with some example entries."""
 
     import string
     import random
 
+    # Delete tables
     db.drop_all()
+    # Create tables
     db.create_all()
 
     with app.app_context():
+        # Create 'user role'
         user_role = Role(name='user')
+        # Create 'super user role'
         super_user_role = Role(name='superuser')
+        # Add object to database
         db.session.add(user_role)
+        # Add object to database
         db.session.add(super_user_role)
+        # Commit changes
         db.session.commit()
-
+        # Create Admin user via Flask-Security
         test_user = user_datastore.create_user(
             first_name='Admin',
             email='admin',
             password=encrypt_password('admin'),
             roles=[user_role, super_user_role]
         )
-
+        # First names for populate
         first_names = [
             'Harry', 'Amelia', 'Oliver', 'Jack', 'Isabella', 'Charlie', 'Sophie', 'Mia',
             'Jacob', 'Thomas', 'Emily', 'Lily', 'Ava', 'Isla', 'Alfie', 'Olivia', 'Jessica',
             'Riley', 'William', 'James', 'Geoffrey', 'Lisa', 'Benjamin', 'Stacey', 'Lucy'
         ]
+        # Last names for populate
         last_names = [
             'Brown', 'Smith', 'Patel', 'Jones', 'Williams', 'Johnson', 'Taylor', 'Thomas',
             'Roberts', 'Khan', 'Lewis', 'Jackson', 'Clarke', 'James', 'Phillips', 'Wilson',
@@ -187,6 +197,5 @@ if __name__ == '__main__':
     database_path = os.path.join(app_dir, app.config['DATABASE_FILE'])
     if not os.path.exists(database_path):
         build_sample_db()
-
-    # Start app
+    # Run the app
     app.run(debug=True)
