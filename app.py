@@ -9,7 +9,7 @@ from flask_admin import Admin, BaseView, expose, helpers as admin_helpers
 from wtforms import PasswordField
 
 # Create Flask application
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 
