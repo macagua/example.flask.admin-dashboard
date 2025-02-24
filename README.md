@@ -59,8 +59,7 @@ To use it following the steps:
     ```
 - Once the process finishes give execution permission to app.py file and run it
     ```sh
-    $ chmod +x app.py
-    $ ./app.py
+    $ python3 ./app.py
     ```
 - The first execution will create automatically a sample sqlite database.
 - Open at your favorite Web browser the following link http://127.0.0.1:5000/admin
