@@ -1,13 +1,11 @@
 import os
-from flask import Flask, url_for, redirect, render_template, request, abort
+from flask import Flask, abort, url_for, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required, current_user
 from flask_security.utils import encrypt_password
-import flask_admin
 from flask_admin.contrib import sqla
-from flask_admin import helpers as admin_helpers
-from flask_admin import BaseView, expose
+from flask_admin import Admin, BaseView, expose, helpers as admin_helpers
 from wtforms import PasswordField
 
 # Create Flask application
@@ -63,10 +61,8 @@ class MyModelView(sqla.ModelView):
     def is_accessible(self):
         if not current_user.is_active or not current_user.is_authenticated:
             return False
-
         if current_user.has_role('superuser'):
             return True
-
         return False
 
     def _handle_view(self, name, **kwargs):
@@ -112,7 +108,7 @@ def index():
     return render_template('index.html')
 
 # Create a Flask-Admin
-admin = flask_admin.Admin(
+admin = Admin(
     app,
     'My Dashboard',
     base_template='my_master.html',
@@ -191,7 +187,6 @@ def build_sample_db():
     return
 
 if __name__ == '__main__':
-
     # Build a sample db on the fly, if one does not exist yet.
     app_dir = os.path.realpath(os.path.dirname(__file__))
     database_path = os.path.join(app_dir, app.config['DATABASE_FILE'])
