@@ -29,8 +29,8 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(255))
 
     def __str__(self):
-+       """Returns a string representative of Role"""
-        return self.name
+        """Returns a string representative of Role"""
+        return f"Role: '{str(self.name)}', description: {self.description}."
 
 
 class User(db.Model, UserMixin):
@@ -47,7 +47,7 @@ class User(db.Model, UserMixin):
 
     def __str__(self):
         """Returns a string representative of User"""
-        return self.email
+        return f"User: '{str(self.email)}', Name: {self.first_name} {self.last_name}."
 
 
 # Setup Flask-Security
