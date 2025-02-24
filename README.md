@@ -2,7 +2,8 @@
 
 ![Flask](docs/_static/flask-vertical.png)
 
-Basic dashboard app with [AdminLTE](https://adminlte.io/) template and [Flask-Admin](https://pypi.org/project/Flask-Admin/), it has:
+Basic dashboard app with [AdminLTE](https://adminlte.io/) template and
+[Flask-Admin](https://pypi.org/project/Flask-Admin/), it has:
 
 - User Registration.
 - Login as general or admin user.
@@ -12,7 +13,9 @@ Basic dashboard app with [AdminLTE](https://adminlte.io/) template and [Flask-Ad
 - Skins and  layout customization.
 - Dashboard, charts, chat and calendar examples.
  
-Utilities: 
+## Utilities
+
+There are using many utilities, as the following:
 
   - [AdminLTE Bootstrap template](https://adminlte.io/).
   - [Flask-Security](https://pypi.org/project/Flask-Security/).
@@ -22,6 +25,7 @@ Utilities:
 
 
 ----
+
 
 ## Requirements
 
@@ -35,6 +39,8 @@ $ sudo apt install -y sqlite3
 ```
 
 ### How to use
+
+To use it following the steps:
 
 - Clone or download the git repository.
     ```sh
@@ -57,11 +63,9 @@ $ sudo apt install -y sqlite3
     $ ./app.py
     ```
 - The first execution will create automatically a sample sqlite database.
-- Open your favorite browser and type
-    ```
-    localhost:5000/admin
-    ```
-    then just log in with the default user or register one.
+- Open at your favorite Web browser the following link http://127.0.0.1:5000/admin
+  then just log in with the default user (user as ``admin`` and password as
+  ``admin``) or register one new user.
 
 
 ----
