@@ -105,6 +105,14 @@ Skins and Layout View
 ----
 
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+
+----
+
+
 ## References
 
 - [AdminLTE Documentation](https://adminlte.io/docs/).
